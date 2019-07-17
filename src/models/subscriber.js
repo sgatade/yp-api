@@ -5,24 +5,42 @@
 
 // Libraries
 const mongoose = require("mongoose");
-const User = require("./user");
 
 // Schema
 const subscriberSchema = new mongoose.Schema({
-    nick: {
+    name: {
         type: String,
+        required: true,
         minlength: 5,
-        maxlength: 20
+        maxlength: 50
+    },
+    email: {
+        type: String,
+        required: true,
+        minlength: 7,
+        maxlength: 50,
+        validate(value) {
+            if(!validator.isEmail(value)) {
+                throw new Error("Email is invalid!");
+            }
+        }
+    },
+    password: {
+        type: String,
+        required: true,
+        minlength: 8
     },
     mobile: {
         type: String,
         minlength: 9,
         maxlength: 15
     }
+}, {
+    timestamps: true
 });
 
 // Extend
-const Subscriber = User.discriminator('Subscriber', subscriberSchema);
+const Subscriber = mongoose.model('Subscriber', subscriberSchema);
 
 // Module Exports
-module.exports = mongoose.model('Subscriber');
+module.exports = Subscriber;
