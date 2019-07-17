@@ -1,0 +1,79 @@
+{
+	"info": {
+		"_postman_id": "a4ac4ba5-47e2-4ee7-b437-47f6920dcde6",
+		"name": "Yuja",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Providers",
+			"item": [
+				{
+					"name": "Create Provider",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"MaxWell Ent.\",\n\t\"email\": \"yuja@maxwell.com\",\n\t\"password\": \"max123456789\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/providers",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"providers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Provider",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"yuja@maxwell.com\",\n\t\"password\": \"max123456789\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/providers/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"providers",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Affiliates",
+			"item": []
+		},
+		{
+			"name": "Subscribers",
+			"item": []
+		}
+	]
+}
