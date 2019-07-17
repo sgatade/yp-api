@@ -5,7 +5,7 @@
 
 // Local Requires
 const express = require("express");
-const userRouter = require("./routes/user");
+const supplierRouter = require("./routes/supplier");
 
 // Start DB
 require("./db/mongoose");
@@ -17,7 +17,7 @@ const app = express();
 app.use(express.json());
 
 // Routes
-app.use(userRouter);
+app.use(supplierRouter);
 
 // Exports
 module.exports = app;

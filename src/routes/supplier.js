@@ -7,13 +7,13 @@
  const express = require("express");
 
  // Local
- const User = require("../models/user");
+ const Supplier = require("../models/supplier");
 
  // Router
  const router = new express.Router();
 
  router.get("/", (req, res) => {
-    res.send("User GET...");
+    res.send("Supplier GET...");
  });
 
  // Module Exports
