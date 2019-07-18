@@ -6,6 +6,7 @@
 // Local Requires
 const express = require("express");
 const supplierRouter = require("./routes/supplier");
+const subscriberRouter = require("./routes/subscriber");
 
 // Start DB
 require("./db/mongoose");
@@ -18,6 +19,7 @@ app.use(express.json());
 
 // Routes
 app.use(supplierRouter);
+app.use(subscriberRouter);
 
 // Exports
 module.exports = app;

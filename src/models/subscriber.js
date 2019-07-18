@@ -29,7 +29,10 @@ const subscriberSchema = new mongoose.Schema(
       minlength: 8
     },
     devices: [{
-        dtype: {
+        uid: {
+          type: String
+        },
+        make: {
             type: String
         }
     }],
