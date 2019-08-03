@@ -34,7 +34,7 @@ const subscriberSchema = new mongoose.Schema(
         },
         make: {
             type: String
-        }
+        },
     }],
     mobile: {
       type: String,

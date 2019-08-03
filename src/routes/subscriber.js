@@ -19,6 +19,13 @@ router.post("/subscribers", async (req, res) => {
     res.send(subscriber);
 });
 
+// Get Subscriber Profile
+router.get("/subscribers/:id", async (req, res) => {
+    const id = req.params.id;
+    const subscriber = await Subscriber.findById(id);
+    res.send(subscriber);
+});
+
 
 
 // Module Exports
