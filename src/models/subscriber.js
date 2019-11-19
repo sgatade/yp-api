@@ -24,14 +24,20 @@ const subscriberSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true,
         minlength: 3
     },
     devices: [
         {
-            deviceId: String,
-            added: new Date(),
-            lastUsed: Date
+            deviceId: {
+                type: String
+            },
+            added: {
+                type: Date,
+                default: Date.now
+            },
+            lastUsed: {
+                type: Date
+            }
         }
     ]
 }, {

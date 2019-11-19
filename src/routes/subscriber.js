@@ -43,12 +43,28 @@ router.get("/subscribers/:id", async (req, res) => {
     }
 });
 
+// Get all subscriers
+router.get("/subscribers/", async (req, res) => {
+    try {
+        
+        const subs = await Subscriber.find();
+        res.send(subs);
+
+    } catch (error) {
+        res.status(500).send({
+            message: "Failed to list all Subscribers",
+            error
+        });
+    }
+});
+
 // Update subscriber details
 router.patch("/subscribers/:id", async (req, res) => {
+    const id = req.params.id;
+
     try {
-        const id = req.params.id;
-        const subs = Subscriber.findByIdAndUpdate(id, req.body);
-        res.send(susbs);
+        const subs = await Subscriber.findByIdAndUpdate(id, req.body, {new: true, runValidators: true});
+        res.send(subs);
 
     } catch (error) {
         res.status(500).send({
@@ -59,10 +75,17 @@ router.patch("/subscribers/:id", async (req, res) => {
 });
 
 // Delete a subscriber
-router.delete("subscribers/:id", async (req, res) => {
+router.delete("/subscribers/:id", async (req, res) => {
+    
+    const id = req.params.id;
+
     try {
-        const id = req.params.id;
-        const subs = Subscriber.findByIdAndDelete(id);
+        const subs = await Subscriber.findByIdAndDelete(id);
+        if(!subs)
+            res.status(404).send({
+                message: "Subscriber not found with id " + id
+            });
+
         res.send(subs);
 
     } catch (error) {

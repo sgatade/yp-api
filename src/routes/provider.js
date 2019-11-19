@@ -7,7 +7,7 @@
  const express = require("express");
 
  // Local
- const Provider = require("../models/user");
+ const Provider = require("../models/provider");
 
  // Router
  const router = new express.Router();
