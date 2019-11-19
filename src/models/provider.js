@@ -6,14 +6,8 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 
-// Base options
-const baseOptions = {
-    discriminatorKey: "type",
-    collection: "users"
-};
-
 // Schema
-const userSchema = new mongoose.Schema({
+const providerSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -41,7 +35,7 @@ const userSchema = new mongoose.Schema({
 });
 
 // Model
-const User = mongoose.model('User', userSchema);
+const Provider = mongoose.model('Provider', providerSchema);
 
 // Module Exports
-module.exports = User;
+module.exports = Provider;

@@ -5,7 +5,7 @@
 
 // Local Requires
 const express = require("express");
-const supplierRouter = require("./routes/supplier");
+const supplierRouter = require("./routes/provider");
 const subscriberRouter = require("./routes/subscriber");
 
 // Start DB

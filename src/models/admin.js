@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 
 // Schema
-const subscriberSchema = new mongoose.Schema({
+const adminSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -29,19 +29,13 @@ const subscriberSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 8
-    },
-    devices: [
-        {
-            deviceId: String,
-            added: new Date(),
-        }
-    ]
+    }
 }, {
     timestamps: true
 });
 
 // Model
-const Subscriber = mongoose.model('Subscriber', subscriberSchema);
+const Admin = mongoose.model('Admin', adminSchema);
 
 // Module Exports
-module.exports = Subscriber;
+module.exports = Admin;
