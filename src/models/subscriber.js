@@ -16,9 +16,6 @@ const subscriberSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: true,
-        minlength: 7,
-        maxlength: 50,
         validate(value) {
             if(!validator.isEmail(value)) {
                 throw new Error("Email is invalid!");
@@ -28,12 +25,13 @@ const subscriberSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        minlength: 8
+        minlength: 3
     },
     devices: [
         {
             deviceId: String,
             added: new Date(),
+            lastUsed: Date
         }
     ]
 }, {
