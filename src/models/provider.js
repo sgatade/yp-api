@@ -5,6 +5,7 @@
 
 const mongoose = require("mongoose");
 const validator = require("validator");
+const bcrypt = require("bcryptjs");
 
 // Schema
 const providerSchema = new mongoose.Schema({
@@ -17,8 +18,6 @@ const providerSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        minlength: 7,
-        maxlength: 50,
         validate(value) {
             if(!validator.isEmail(value)) {
                 throw new Error("Email is invalid!");
@@ -28,10 +27,30 @@ const providerSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        minlength: 8
-    }
+        minlength: 3
+    },
+    tokens: [{
+        token: String
+    }]
 }, {
     timestamps: true
+});
+
+// PRE SAVE processing
+// a. Hashing Password
+providerSchema.pre("save", async function (next) {
+
+    const provider = this;
+
+    if(provider.isModified("password")) {
+        /**
+         * TODO: Change the hashing value to be picked up from env?
+         * @SG on 2019-11-19, 15:32
+         */
+        provider.password = await bcrypt.hash(provider.password, 8);
+    }
+
+    next();
 });
 
 // Model
