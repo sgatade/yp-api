@@ -45,9 +45,24 @@ router.get("/subscribers/:id", async (req, res) => {
 
 // Get all subscriers
 router.get("/subscribers/", async (req, res) => {
+
+    // Set default query limit value
+    let queryLimit = 0;
+    if(req.query.limit) {
+        queryLimit = parseInt(req.query.limit);
+    } 
+
+    // Set default query skip value
+    let querySkip = 0;
+    if(req.query.skip) {
+        querySkip = parseInt(req.query.skip);
+    }
+
+    console.log("Query Limit : " + queryLimit + " & Skip : " + querySkip);
+
     try {
         
-        const subs = await Subscriber.find();
+        const subs = await Subscriber.find().limit(queryLimit).skip(querySkip);
         res.send(subs);
 
     } catch (error) {
