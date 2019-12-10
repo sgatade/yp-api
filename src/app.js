@@ -2,11 +2,12 @@
  * App.js
  * @SG on 2019-07-17, 21:35
  */
+const express = require("express");
 
 // Local Requires
-const express = require("express");
 const supplierRouter = require("./routes/provider");
 const subscriberRouter = require("./routes/subscriber");
+const auth = require("./middleware/auth");
 
 // Start DB
 require("./db/mongoose");
@@ -16,6 +17,9 @@ const app = express();
 
 // Use JSON
 app.use(express.json());
+
+// Auth Middleware
+// app.use(auth);
 
 // Routes
 app.use(supplierRouter);

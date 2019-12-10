@@ -8,13 +8,13 @@ const express = require("express");
 
  // Local
 const Provider = require("../models/provider");
-const Subscriber = require("../models/subscriber");
+const auth = require("../middleware/auth");
 
 // Router
 const router = new express.Router();
 
 // Create Provider
-router.post("/providers", async (req, res) => {
+router.post("/providers", auth, async (req, res) => {
 
    try {
       
@@ -72,35 +72,6 @@ router.patch("/providers/:id", async (req, res) => {
    };
 });
 
-// Get all subscriers
-router.get("/providers/subscribers/", async (req, res) => {
-
-   // Set default query limit value
-   let queryLimit = 0;
-   if(req.query.limit) {
-       queryLimit = parseInt(req.query.limit);
-   } 
-
-   // Set default query skip value
-   let querySkip = 0;
-   if(req.query.skip) {
-       querySkip = parseInt(req.query.skip);
-   }
-
-   console.log("Query Limit : " + queryLimit + " & Skip : " + querySkip);
-
-   try {
-       
-       const subs = await Subscriber.find().limit(queryLimit).skip(querySkip);
-       res.send(subs);
-
-   } catch (error) {
-       res.status(500).send({
-           message: "Failed to list all Subscribers",
-           error
-       });
-   }
-});
 
 // Module Exports
 module.exports = router;
