@@ -56,8 +56,33 @@ providerSchema.pre("save", async function (next) {
 
 // Return JWT
 providerSchema.methods.getAuthToken = async function () {
-    const user = this;
-    const token = jwt.sign( {_id: user._id}, process.env.JWT_KEY );
+    const provider = this;
+
+    // Create a new token
+    const token = jwt.sign( {_id: provider._id}, process.env.JWT_KEY );
+    provider.tokens = provider.tokens.concat({ token });
+
+    // Save user & token
+    await provider.save();
+
+    return token;
+};
+
+// Find provider
+providerSchema.statics.findProvider = async function (email, password) {
+
+    const provider = await Provider.findOne( {email} );
+    if(!provider) {
+        throw new Error("Unable to login! Bad email or password!!!");
+    }
+
+    // see if hashed password matches
+    const isMatch = await bcrypt.compare(password, provider.password);
+    if(!isMatch) {
+        throw new Error("Unable to login! Bad email or password!!!");
+    }
+
+    return provider;
 };
 
 // Model

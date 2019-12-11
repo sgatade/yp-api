@@ -1,5 +1,5 @@
 /**
- * User Routes : Common routes for Subscriber, Provider and Affiliate
+ * Provider Routes
  * @SG on 2019-07-17, 22:03
  */
 
@@ -37,7 +37,18 @@ router.post("/providers", auth, async (req, res) => {
 
 // Login provider
 router.post("/providers/login", async (req, res) => {
+
+   try {
+      const provider = await Provider.findProvider(req.body.email, req.body.password);
+      const token = await provider.getAuthToken();
    
+      res.send( { provider, token} );
+         
+   } catch (error) {
+      res.status(400).send({
+         message: error.message
+      });
+   }
 });
 
 // Update provider
