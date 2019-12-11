@@ -51,6 +51,27 @@ router.post("/providers/login", async (req, res) => {
    }
 });
 
+// Logout provider
+router.post("/providers/logout", auth, async (req, res) => {
+
+   try {
+
+      console.log("[LOGOUT] Auth Provider", req.provider);
+      req.provider.tokens = req.provider.tokens.filter( (token) => {
+         return token.token !== req.token; 
+      });
+      
+      await req.provider.save();
+
+      res.send();
+
+   } catch (error) {
+      res.status(500).send({
+         message: error.message
+      });      
+   }
+});
+
 // Update provider
 router.patch("/providers/:id", async (req, res) => {
    
@@ -82,8 +103,7 @@ router.patch("/providers/:id", async (req, res) => {
 
    } catch (error) {
       res.status(500).send({
-         message: "Failed to update Subscriber details",
-         error
+         message: error.message
       });
    };
 });
