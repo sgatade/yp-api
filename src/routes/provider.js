@@ -35,6 +35,11 @@ router.post("/providers", auth, async (req, res) => {
    }
 });
 
+// Login provider
+router.post("/providers/login", async (req, res) => {
+   
+});
+
 // Update provider
 router.patch("/providers/:id", async (req, res) => {
    

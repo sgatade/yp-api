@@ -18,9 +18,6 @@ const app = express();
 // Use JSON
 app.use(express.json());
 
-// Auth Middleware
-// app.use(auth);
-
 // Routes
 app.use(supplierRouter);
 app.use(subscriberRouter);

@@ -6,6 +6,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 // Schema
 const providerSchema = new mongoose.Schema({
@@ -52,6 +53,12 @@ providerSchema.pre("save", async function (next) {
 
     next();
 });
+
+// Return JWT
+providerSchema.methods.getAuthToken = async function () {
+    const user = this;
+    const token = jwt.sign( {_id: user._id}, process.env.JWT_KEY );
+};
 
 // Model
 const Provider = mongoose.model('Provider', providerSchema);
