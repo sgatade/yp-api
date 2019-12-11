@@ -56,16 +56,34 @@ providerSchema.pre("save", async function (next) {
 
 // Return JWT
 providerSchema.methods.getAuthToken = async function () {
+
+    try {
+        const provider = this;
+
+        // Create a new token
+        const token = jwt.sign( {_id: provider._id}, process.env.JWT_KEY );
+        provider.tokens = provider.tokens.concat({ token });
+    
+        // Save user & token
+        await provider.save();
+    
+        return token;
+            
+    } catch (error) {
+        throw new Error(error);        
+    }
+};
+
+// Get public profile
+providerSchema.methods.getPublicProfile = function () {
     const provider = this;
 
-    // Create a new token
-    const token = jwt.sign( {_id: provider._id}, process.env.JWT_KEY );
-    provider.tokens = provider.tokens.concat({ token });
+    const providerObject = provider.toObject();
 
-    // Save user & token
-    await provider.save();
+    delete providerObject.password;
+    delete providerObject.tokens;
 
-    return token;
+    return providerObject;
 };
 
 // Find provider

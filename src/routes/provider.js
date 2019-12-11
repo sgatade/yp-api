@@ -42,7 +42,7 @@ router.post("/providers/login", async (req, res) => {
       const provider = await Provider.findProvider(req.body.email, req.body.password);
       const token = await provider.getAuthToken();
    
-      res.send( { provider, token} );
+      res.send( { provider: provider.getPublicProfile(), token} );
          
    } catch (error) {
       res.status(400).send({
